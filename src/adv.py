@@ -1,6 +1,8 @@
 from room import Room
-
+from player import Player
 # Declare all the rooms
+
+
 
 room = {
     'outside':  Room("Outside Cave Entrance",
@@ -37,7 +39,64 @@ room['treasure'].s_to = room['narrow']
 # Main
 #
 
+
+
+# def get_keys(val):
+#     for key, value in room.items():
+#         if val == value:
+#             return key
+#         return "Room doesn't exist"
+
+new_player = Player("Jonathan", 'outside')
+welcome = "Welcome to the game what would you like to do?    \n 1. M for move, \n 2. I for inventory \n 3. Q for Quit" 
+command = input(welcome)
+
+def move_validation(direction):
+    try:
+        val = getattr(room[new_player.current_room], direction)
+        if val != None:
+            for key, value in room.items():
+                if val == value:
+                    new_player.current_room = key
+        else:
+            pass 
+    except AttributeError:
+            print("\n =====Invalid Room Choice=====")
+
+
 # Make a new player object that is currently in the 'outside' room.
+
+while command != 'q':
+
+
+    while command == 'm':
+        
+        print(f"\n {new_player.name} is currently in room {room[new_player.current_room].name} \n\n {room[new_player.current_room].description} \n \n") 
+
+        direction = input("Please choose your path... \n N for North \n E for East \n S for South \n W for West \n Q for Quit \n  >>")
+
+        if direction == "n":
+            move_validation("n_to")   
+            
+
+        elif direction == "e":
+            move_validation("e_to")
+           
+
+        elif direction == "w":
+            move_validation("w_to")
+           
+        
+        elif direction == "s":
+            move_validation("s_to")
+        
+        elif direction == "q":
+            exit()
+        else: 
+            print("Make a better life choice..")
+
+
+
 
 # Write a loop that:
 #
